@@ -29,6 +29,11 @@ end
 vim.keymap.set("n", "<C-w>z", toggle_maximize_window, { desc = "Toggle Maximize Window" })
 vim.keymap.set("n", "<C-w><C-z>", toggle_maximize_window, { desc = "Toggle Maximize Window" })
 
+-- gi = Goto Implementation（覆盖原生的"跳到上次插入位置并进入插入模式"）
+vim.keymap.set("n", "gi", function()
+  require("snacks").picker.lsp_implementations()
+end, { desc = "Goto Implementation" })
+
 -- 恢复 s 的原始功能（删除字符并进入插入模式）
 vim.keymap.set({ "n", "x" }, "s", "s", { desc = "Substitute" })
 
