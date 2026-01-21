@@ -6,7 +6,25 @@ return {
     opts = {
       servers = {
         -- pyright 会通过 mason 自动安装
-        pyright = {},
+        pyright = {
+          settings = {
+            python = {
+              -- 自动使用终端激活的 Python 环境
+              pythonPath = (function()
+                -- 优先使用 venv
+                if vim.env.VIRTUAL_ENV then
+                  return vim.env.VIRTUAL_ENV .. "/bin/python"
+                -- 其次使用 conda
+                elseif vim.env.CONDA_PREFIX then
+                  return vim.env.CONDA_PREFIX .. "/bin/python"
+                -- 默认
+                else
+                  return "python3"
+                end
+              end)(),
+            },
+          },
+        },
       },
     },
   },
