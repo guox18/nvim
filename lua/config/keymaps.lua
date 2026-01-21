@@ -47,3 +47,19 @@ vim.keymap.set("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 vim.keymap.set("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
 vim.keymap.set("v", "<A-Up>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 vim.keymap.set("v", "<A-Down>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
+
+-- Emacs 风格的 Insert 模式快捷键
+vim.keymap.set("i", "<C-a>", "<Home>", { desc = "Go to beginning of line" })
+vim.keymap.set("i", "<C-e>", "<End>", { desc = "Go to end of line" })
+vim.keymap.set("i", "<C-k>", "<C-o>D", { desc = "Kill to end of line" })
+vim.keymap.set("i", "<C-u>", "<C-u>", { desc = "Kill to beginning of line" }) -- vim 原生已支持，显式保留
+
+-- macOS 风格：Option + 左/右 按单词移动（Insert 模式）
+-- 不同终端可能发送不同的键码，所以同时映射多种形式
+vim.keymap.set("i", "<A-Left>", "<C-Left>", { desc = "Move word left" })
+vim.keymap.set("i", "<A-Right>", "<C-Right>", { desc = "Move word right" })
+vim.keymap.set("i", "<M-Left>", "<C-Left>", { desc = "Move word left" })
+vim.keymap.set("i", "<M-Right>", "<C-Right>", { desc = "Move word right" })
+-- iTerm2 / 某些终端使用 Esc 序列：Esc+b 和 Esc+f
+vim.keymap.set("i", "<Esc>b", "<C-Left>", { desc = "Move word left" })
+vim.keymap.set("i", "<Esc>f", "<C-Right>", { desc = "Move word right" })
