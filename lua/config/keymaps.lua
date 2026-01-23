@@ -52,12 +52,17 @@ vim.keymap.set("v", "<A-Down>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>g
 vim.keymap.set("i", "<C-a>", "<Home>", { desc = "Go to beginning of line" })
 vim.keymap.set("i", "<C-e>", "<End>", { desc = "Go to end of line" })
 vim.keymap.set("i", "<C-k>", "<C-o>D", { desc = "Kill to end of line" })
-vim.keymap.set("i", "<C-u>", "<C-u>", { desc = "Kill to beginning of line" }) -- vim 原生已支持，显式保留
+vim.keymap.set("i", "<C-u>", "<C-o>d0", { desc = "Kill to beginning of line" })
+vim.keymap.set("i", "<A-d>", "<C-o>dw", { desc = "Delete word forward" })
+vim.keymap.set("i", "<C-_>", "<C-o>u", { desc = "Undo" })
 
 -- macOS 风格：Option + 左/右 按单词移动（Insert 模式）
 -- 不同终端可能发送不同的键码，所以同时映射多种形式
 vim.keymap.set("i", "<A-Left>", "<C-Left>", { desc = "Move word left" })
 vim.keymap.set("i", "<A-Right>", "<C-Right>", { desc = "Move word right" })
+-- 禁用 Normal 模式下的 Option + 左/右（用 b/w/e 移动）
+vim.keymap.set("n", "<A-Left>", "<Nop>")
+vim.keymap.set("n", "<A-Right>", "<Nop>")
 vim.keymap.set("i", "<M-Left>", "<C-Left>", { desc = "Move word left" })
 vim.keymap.set("i", "<M-Right>", "<C-Right>", { desc = "Move word right" })
 -- iTerm2 / 某些终端使用 Esc 序列：Esc+b 和 Esc+f
