@@ -56,6 +56,13 @@ vim.keymap.set("i", "<C-u>", "<C-o>d0", { desc = "Kill to beginning of line" })
 vim.keymap.set("i", "<A-d>", "<C-o>dw", { desc = "Delete word forward" })
 vim.keymap.set("i", "<C-_>", "<C-o>u", { desc = "Undo" })
 
+-- macOS 风格：Option + Delete 删除前一个单词
+-- 终端发送的可能是不同的序列，尝试多种映射
+vim.keymap.set("i", "<A-BS>", "<C-w>", { desc = "Delete word backward" })
+vim.keymap.set("i", "<M-BS>", "<C-w>", { desc = "Delete word backward" })
+-- Esc + DEL (0x7f) - Ghostty 可能发送这个
+vim.keymap.set("i", "\x1b\x7f", "<C-w>", { desc = "Delete word backward" })
+
 -- macOS 风格：Option + 左/右 按单词移动（Insert 模式）
 -- 不同终端可能发送不同的键码，所以同时映射多种形式
 vim.keymap.set("i", "<A-Left>", "<C-Left>", { desc = "Move word left" })

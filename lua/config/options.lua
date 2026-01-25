@@ -9,6 +9,15 @@ vim.g.maplocalleader = "\\"
 -- 每个窗口顶部显示相对路径（从当前工作目录开始）
 vim.opt.winbar = "%{expand('%:.')}%m"
 
--- 增加 ttimeoutlen，让 Esc 序列（如 Option+左/右）能被正确识别
--- 默认值太短，VSCode 终端发送 Esc+b/f 时会被拆开
+-- 增加 ttimeoutlen，让 Esc 序列（如 Option+左/右/Delete）能被正确识别
+-- 默认值太短，终端发送 Esc+字符 的序列时会被拆开
 vim.opt.ttimeoutlen = 100
+
+-- 允许光标在行首/行尾时跨行移动
+-- h,l: 普通模式下 h/l 可跨行
+-- <,>: 普通/可视模式下 左/右箭头 可跨行
+-- [,]: 插入模式下 左/右箭头 可跨行
+vim.opt.whichwrap:append("<,>,h,l,[,]")
+
+-- 默认开启自动换行
+vim.opt.wrap = true
