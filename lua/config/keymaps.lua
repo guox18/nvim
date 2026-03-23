@@ -40,6 +40,13 @@ vim.keymap.set({ "n", "x" }, "s", "s", { desc = "Substitute" })
 -- 恢复 S 的原始功能（删除整行并进入插入模式）
 vim.keymap.set("n", "S", "S", { desc = "Substitute line" })
 
+-- LazyVim 默认的 Alt+j/k 会和终端里的 Esc+j/k 产生歧义：
+-- 退出 Insert 后如果很快按 j/k，可能会被识别成 Alt+j/k，从而触发行移动。
+for _, mode in ipairs({ "n", "i", "v" }) do
+  pcall(vim.keymap.del, mode, "<A-j>")
+  pcall(vim.keymap.del, mode, "<A-k>")
+end
+
 -- 用 Option + 上下箭头 移动行（替代 Option + j/k）
 vim.keymap.set("n", "<A-Up>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
 vim.keymap.set("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
