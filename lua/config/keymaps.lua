@@ -82,3 +82,19 @@ vim.keymap.set("i", "<M-Right>", "<C-Right>", { desc = "Move word right" })
 -- iTerm2 / 某些终端使用 Esc 序列：Esc+b 和 Esc+f
 vim.keymap.set("i", "<Esc>b", "<C-Left>", { desc = "Move word left" })
 vim.keymap.set("i", "<Esc>f", "<C-Right>", { desc = "Move word right" })
+
+local function copy_absolute_path_with_lines()
+  local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
+  local visual_line = vim.fn.line("v")
+  local start_line = math.min(cursor_line, visual_line)
+  local end_line = math.max(cursor_line, visual_line)
+  local location = vim.fn.expand("%:p") .. ":" .. start_line
+
+  if start_line ~= end_line then
+    location = location .. "~" .. end_line
+  end
+
+  require("osc52").copy(location)
+end
+
+vim.keymap.set("x", "<leader>i", copy_absolute_path_with_lines, { desc = "Copy absolute path with line range" })
