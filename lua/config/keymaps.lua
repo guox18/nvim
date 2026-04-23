@@ -95,6 +95,7 @@ local function copy_absolute_path_with_lines()
   end
 
   require("osc52").copy(location)
+  vim.api.nvim_input("<Esc>")
 end
 
 vim.keymap.set("x", "<leader>i", copy_absolute_path_with_lines, { desc = "Copy absolute path with line range" })
