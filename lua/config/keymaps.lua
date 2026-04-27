@@ -63,6 +63,28 @@ vim.keymap.set("i", "<C-u>", "<C-o>d0", { desc = "Kill to beginning of line" })
 vim.keymap.set("i", "<A-d>", "<C-o>dw", { desc = "Delete word forward" })
 vim.keymap.set("i", "<C-_>", "<C-o>u", { desc = "Undo" })
 
+-- Emacs 风格的保存 / 退出快捷键
+-- Insert 模式下必须接管单独的 <C-x>，否则会进入 Vim 原生补全 ^X mode。
+local function emacs_ctrl_x_prefix()
+  local ok, key = pcall(vim.fn.getcharstr)
+  if not ok then
+    return
+  end
+
+  if key == "s" or key == "\19" then
+    vim.cmd("write")
+  elseif key == "c" then
+    vim.cmd("confirm qall")
+  elseif key == "w" or key == "\23" then
+    vim.cmd("wq")
+  else
+    vim.notify("C-x " .. vim.fn.keytrans(key) .. " is undefined", vim.log.levels.WARN)
+  end
+end
+
+vim.keymap.set({ "n", "i", "x" }, "<C-x>", emacs_ctrl_x_prefix, { desc = "Emacs C-x prefix" })
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
+
 -- macOS 风格：Option + Delete 删除前一个单词
 -- 终端发送的可能是不同的序列，尝试多种映射
 vim.keymap.set("i", "<A-BS>", "<C-w>", { desc = "Delete word backward" })
