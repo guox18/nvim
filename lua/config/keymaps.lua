@@ -73,7 +73,7 @@ local function emacs_ctrl_x_prefix()
 
   if key == "s" or key == "\19" then
     vim.cmd("write")
-  elseif key == "c" then
+  elseif key == "q" or key == "\17" then
     vim.cmd("confirm qall")
   elseif key == "w" or key == "\23" then
     vim.cmd("wq")
