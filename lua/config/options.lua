@@ -6,6 +6,10 @@
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = "\\"
 
+-- 不把无名寄存器绑定到系统剪贴板，避免 d/c/s/x 等删除操作污染剪贴板。
+-- 系统剪贴板复制由 plugins/osc52.lua 中的 TextYankPost 仅在 y 操作时处理。
+vim.opt.clipboard = ""
+
 -- 每个窗口顶部显示相对路径（从当前工作目录开始）
 vim.opt.winbar = "%{expand('%:.')}%m"
 
