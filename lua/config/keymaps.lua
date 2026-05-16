@@ -92,16 +92,19 @@ vim.keymap.set("i", "<M-BS>", "<C-w>", { desc = "Delete word backward" })
 -- Esc + DEL (0x7f) - Ghostty 可能发送这个
 vim.keymap.set("i", "\x1b\x7f", "<C-w>", { desc = "Delete word backward" })
 
--- macOS 风格：Option + 左/右 按单词移动（Insert 模式）
+-- macOS 风格：Option + 左/右 按单词移动
 -- 不同终端可能发送不同的键码，所以同时映射多种形式
+vim.keymap.set("n", "<A-Left>", "b", { desc = "Move word left" })
+vim.keymap.set("n", "<A-Right>", "w", { desc = "Move word right" })
 vim.keymap.set("i", "<A-Left>", "<C-Left>", { desc = "Move word left" })
 vim.keymap.set("i", "<A-Right>", "<C-Right>", { desc = "Move word right" })
--- 禁用 Normal 模式下的 Option + 左/右（用 b/w/e 移动）
-vim.keymap.set("n", "<A-Left>", "<Nop>")
-vim.keymap.set("n", "<A-Right>", "<Nop>")
+vim.keymap.set("n", "<M-Left>", "b", { desc = "Move word left" })
+vim.keymap.set("n", "<M-Right>", "w", { desc = "Move word right" })
 vim.keymap.set("i", "<M-Left>", "<C-Left>", { desc = "Move word left" })
 vim.keymap.set("i", "<M-Right>", "<C-Right>", { desc = "Move word right" })
 -- iTerm2 / 某些终端使用 Esc 序列：Esc+b 和 Esc+f
+vim.keymap.set("n", "<Esc>b", "b", { desc = "Move word left" })
+vim.keymap.set("n", "<Esc>f", "w", { desc = "Move word right" })
 vim.keymap.set("i", "<Esc>b", "<C-Left>", { desc = "Move word left" })
 vim.keymap.set("i", "<Esc>f", "<C-Right>", { desc = "Move word right" })
 
