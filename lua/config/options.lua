@@ -15,7 +15,7 @@ vim.opt.winbar = "%{expand('%:.')}%m"
 
 -- 增加 ttimeoutlen，让 Esc 序列（如 Option+左/右/Delete）能被正确识别
 -- 默认值太短，终端发送 Esc+字符 的序列时会被拆开
-vim.opt.ttimeoutlen = 100
+vim.opt.ttimeoutlen = 300
 
 -- 允许光标在行首/行尾时跨行移动
 -- h,l: 普通模式下 h/l 可跨行
