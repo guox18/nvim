@@ -124,3 +124,9 @@ local function copy_absolute_path_with_lines()
 end
 
 vim.keymap.set("x", "<leader>i", copy_absolute_path_with_lines, { desc = "Copy absolute path with line range" })
+
+-- <leader>z 切换视觉换行（soft wrap），wrap 是 window-local 选项，用 vim.wo
+vim.keymap.set("n", "<leader>z", function()
+  vim.wo.wrap = not vim.wo.wrap
+  vim.notify("Wrap " .. (vim.wo.wrap and "enabled" or "disabled"), vim.log.levels.INFO)
+end, { desc = "Toggle Wrap" })
