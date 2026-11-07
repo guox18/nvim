@@ -13,9 +13,15 @@ vim.opt.clipboard = ""
 -- 每个窗口顶部显示相对路径（从当前工作目录开始）
 vim.opt.winbar = "%{expand('%:.')}%m"
 
--- 增加 ttimeoutlen，让 Esc 序列（如 Option+左/右/Delete）能被正确识别
--- 默认值太短，终端发送 Esc+字符 的序列时会被拆开
-vim.opt.ttimeoutlen = 300
+-- Esc 序列（如 Option+左/右/Delete）的识别等待时间
+-- 终端会一次性发出整个序列, 50ms 足够; 太大会让 Esc 退出插入模式有明显延迟
+vim.opt.ttimeoutlen = 50
+
+-- 禁用未使用的 provider, 省掉启动时探测 python/ruby/perl/node 的开销 (python3 单项 ~280ms)
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
 
 -- 允许光标在行首/行尾时跨行移动
 -- h,l: 普通模式下 h/l 可跨行

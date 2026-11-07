@@ -89,8 +89,8 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highl
 -- 终端发送的可能是不同的序列，尝试多种映射
 vim.keymap.set("i", "<A-BS>", "<C-w>", { desc = "Delete word backward" })
 vim.keymap.set("i", "<M-BS>", "<C-w>", { desc = "Delete word backward" })
--- Esc + DEL (0x7f) - Ghostty 可能发送这个
-vim.keymap.set("i", "\x1b\x7f", "<C-w>", { desc = "Delete word backward" })
+-- Esc + DEL (Ghostty) 在 ttimeoutlen 内会被 nvim 自动识别为 <M-BS>, 无需单独映射
+-- (以 Esc 开头的映射会让每次按 Esc 都等待 timeoutlen)
 
 -- macOS 风格：Option + 左/右 按单词移动
 -- 不同终端可能发送不同的键码，所以同时映射多种形式
@@ -102,11 +102,12 @@ vim.keymap.set("n", "<M-Left>", "b", { desc = "Move word left" })
 vim.keymap.set("n", "<M-Right>", "w", { desc = "Move word right" })
 vim.keymap.set("i", "<M-Left>", "<C-Left>", { desc = "Move word left" })
 vim.keymap.set("i", "<M-Right>", "<C-Right>", { desc = "Move word right" })
--- iTerm2 / 某些终端使用 Esc 序列：Esc+b 和 Esc+f
-vim.keymap.set("n", "<Esc>b", "b", { desc = "Move word left" })
-vim.keymap.set("n", "<Esc>f", "w", { desc = "Move word right" })
-vim.keymap.set("i", "<Esc>b", "<C-Left>", { desc = "Move word left" })
-vim.keymap.set("i", "<Esc>f", "<C-Right>", { desc = "Move word right" })
+-- iTerm2 / 某些终端使用 Esc 序列：Esc+b 和 Esc+f, nvim 会识别为 <M-b> / <M-f>
+-- 不要映射成 <Esc>b, 否则每次按 Esc 都要等 timeoutlen 才生效
+vim.keymap.set("n", "<M-b>", "b", { desc = "Move word left" })
+vim.keymap.set("n", "<M-f>", "w", { desc = "Move word right" })
+vim.keymap.set("i", "<M-b>", "<C-Left>", { desc = "Move word left" })
+vim.keymap.set("i", "<M-f>", "<C-Right>", { desc = "Move word right" })
 
 local function copy_absolute_path_with_lines()
   local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
